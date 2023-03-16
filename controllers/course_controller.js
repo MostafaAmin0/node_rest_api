@@ -1,5 +1,6 @@
 const { courses } = require('../models/course');
 const Joi = require('joi');
+const { validateCourse } = require('../helper/validation');
 
 const getAllCourses = (req, res) => {
     res.send(courses);
@@ -55,13 +56,6 @@ const editCourse = (req, res) => {
 
 };
 
-function validateCourse(course) {
-    const schema = Joi.object({
-        name: Joi.string().min(3).required()
-    });
-
-    return schema.validate(course);
-}
 
 const deleteCourse = (req, res) => {
     const course = courses.find(c => c.id === parseInt(req.params.id));
