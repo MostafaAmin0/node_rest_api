@@ -42,6 +42,10 @@ const editExam = async (req, res) => {
     try {
         // const course = await Course.findByIdAndUpdate({ _id: userId }, req.body);
         const exam = await Exam.findOne({ _id: req.body.id });
+        if (!exam) {
+            res.status(400).send('Exam not found');
+        }
+
         // for authorzaition purposes
         if (req.body.courseId == exam.courseId) {
             if (req.body.name) {
@@ -59,8 +63,13 @@ const editExam = async (req, res) => {
 
 const deleteExam = async (req, res) => {
     try {
-        const course = await Exam.deleteOne({ _id: req.params.id });
-        res.status(200).send(course);
+        const exam = await Exam.findOne({ _id: req.params.examId });
+        if (exam.courseId == req.params.courseId) {
+            await Exam.deleteOne({ _id: req.params.examId });
+            res.status(200).send(exam);
+        } else {
+            res.status(400).send('You are not authorized to delete this exam');
+        }
     } catch (error) {
         res.status(400).send(error);
     }
