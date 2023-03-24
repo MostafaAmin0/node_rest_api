@@ -1,9 +1,19 @@
-const courses = [
-    { id: 1, name: "JAVA" },
-    { id: 2, name: "C++" },
-    { id: 3, name: "Python" },
-];
+const mongoose = require("mongoose");
+const Scheme = mongoose.Schema;
+const model = mongoose.model;
+
+const courseScheme = Scheme({
+    name: {
+        type: String,
+        required: true,
+    },
+    count: {
+        type: Number,
+    }
+});
+
+const Course = model('Course', courseScheme);
 
 module.exports = {
-    courses,
+    Course,
 };
