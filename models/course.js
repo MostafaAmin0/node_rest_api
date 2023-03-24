@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
-const Scheme = mongoose.Schema;
+const Schema = mongoose.Schema;
 const model = mongoose.model;
 
-const courseScheme = Scheme({
+const courseScheme = Schema({
     name: {
         type: String,
         required: true,
